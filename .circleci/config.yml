@@ -47,18 +47,6 @@ jobs:
           command: |
             . venv/bin/activate
             make lint           
-  build-image:
-    docker:
-      - image: circleci/buildpack-deps:stretch
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Build Docker image
-          command: |
-            docker build -t chawlashikha91/mlpred .
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push chawlashikha91/mlpred
   deploy:
     executor: aws-eks/python3
     parameters:
