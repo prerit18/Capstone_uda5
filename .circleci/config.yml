@@ -113,7 +113,7 @@ workflows:
 #      - lint:
 #          requires: [install]
       - build-upload-image:
-#          requires: [install_lint]
+          requires: [install_lint]
 ##      - deploy:
 #          requires: [build-image]
 #          cluster-name: capstone18
