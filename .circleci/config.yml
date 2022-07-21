@@ -46,7 +46,20 @@ jobs:
           name: run lint
           command: |
             . venv/bin/activate
-            make lint           
+            make lint 
+  
+  build-image:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t prerit18/mlpred .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push prerit18/mlpred
   deploy:
     executor: aws-eks/python3
     parameters:
@@ -99,7 +112,7 @@ workflows:
       - install_lint
 #      - lint:
 #          requires: [install]
-#      - build-image:
+      - build-image:
 #          requires: [install_lint]
 #      - deploy:
 #          requires: [build-image]
