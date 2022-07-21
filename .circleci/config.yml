@@ -48,7 +48,7 @@ jobs:
             . venv/bin/activate
             make lint 
   
-  build-image:
+  build-upload-image:
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
@@ -112,7 +112,7 @@ workflows:
       - install_lint
 #      - lint:
 #          requires: [install]
-      - build-image:
+      - build-upload-image:
 #          requires: [install_lint]
 #      - deploy:
 #          requires: [build-image]
